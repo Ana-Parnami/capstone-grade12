@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Maze Game</title>
+  <title>Maze Game with Flashlight Effect and Health Bar</title>
   <style>
     body {
       display: flex;
@@ -11,6 +11,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      overflow: hidden; /* Hide the overflow to prevent scrolling */
     }
 
     #maze {
@@ -35,12 +36,30 @@
       left: 370px;
       width: 20px;
       height: 20px;
-      background-color: green;
+      background-color: white;
     }
 
     .wall {
       position: absolute;
       background-color: #000;
+    }
+
+    #flashlight {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      mix-blend-mode: screen;
+    }
+
+    #healthBar {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 100px;
+      height: 20px;
+      background-color: #0f0; /* Green color for full health */
+      border: 1px solid #000;
     }
   </style>
 </head>
@@ -55,10 +74,18 @@
     <div class="wall" style="top: 250px; left: 100px; width: 200px; height: 10px;"></div>
   </div>
 
+  <div id="flashlight"></div>
+
+  <div id="healthBar"></div>
+
   <script>
     const player = document.querySelector('.player');
     const goal = document.querySelector('.goal');
     const walls = document.querySelectorAll('.wall');
+    const flashlight = document.getElementById('flashlight');
+    const healthBar = document.getElementById('healthBar');
+
+    let health = 100;
 
     document.addEventListener('keydown', movePlayer);
 
@@ -89,6 +116,22 @@
         if (checkGoal()) {
           alert('Congratulations! You reached the goal!');
         }
+
+        // Move the flashlight along with the player
+        const playerCenterX = newLeft + player.clientWidth / 2;
+        const playerCenterY = newTop + player.clientHeight / 2;
+        const radius = 50;
+        flashlight.style.background = `radial-gradient(circle ${radius}px at ${playerCenterX}px ${playerCenterY}px, transparent 0%, transparent 80%, black 100%)`;
+      } else {
+        // Decrease health when hitting a wall
+        health -= 10;
+        updateHealthBar();
+
+        // Check for game over
+        if (health <= 0) {
+          alert('Game Over! Your health reached zero.');
+          resetGame();
+        }
       }
     }
 
@@ -117,6 +160,18 @@
         playerRect.left < goalRect.right &&
         playerRect.right > goalRect.left
       );
+    }
+
+    function updateHealthBar() {
+      healthBar.style.width = `${health}%`;
+      healthBar.style.backgroundColor = `rgb(${255 - (health * 2.55)}, ${health * 2.55}, 0)`;
+    }
+
+    function resetGame() {
+      player.style.top = '10px';
+      player.style.left = '10px';
+      health = 100;
+      updateHealthBar();
     }
   </script>
 </body>
