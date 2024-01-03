@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hEART Diagram</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden; 
+    }
+
+    #maze {
+      position: relative;
+      width: 100vw; 
+      height: 100vh; 
+      border: 2px solid #000;
+    }
+
+    .player {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 20px;
+      height: 20px;
+      background-color: red;
+    }
+
+    .goal {
+      position: absolute;
+      top: 310px;
+      left: 340px;
+      width: 100px;
+      height: 20px;
+      background-color: green;
+    }
+
+    .pink {
+      position: absolute;
+      
+      background-color: green;
+    }
+
+    .blue {
+      position: absolute;
+      top: 110px;
+      left: 340px;
+      width: 100px;
+      height: 20px;
+      background-color: green;
+    }
+
+    .wall {
+      position: absolute;
+      background-color: #000;
+    }
+     h1 {
+            text-align: center;
+        }
+  </style>
+</head>
+<body>
+  <div id="maze">
+    <div class="player"></div>
+    <div class="goal"></div>
+    <div class="pink" style="top: 110px;
+      left: 160px;
+      width: 100px;
+      height: 20px;"></div>
+      <div class="pink" style="top: 310px;
+      left: 160px;
+      width: 100px;
+      height: 20px;"></div>
+      
+      
+<h1> Diagram of a heart</h1>
+ <h2 style="position: relative; top: 130px; left: 180px; width: 80px; height: 10px;">Right Atrium</h2>
+ <h2 style="position: relative; top: 100px; left: 380px; width: 80px; height: 10px;">Left Atrium</h2>
+  <h2 style="position: relative; top: 300px; left: 180px; width: 80px; height: 10px;">Right Ventrical</h2>
+ <h2 style="position: relative; top: 280px; left: 380px; width: 80px; height: 10px;">Left Ventrical</h2>
+
+
+    <div class="blue"></div>
+    <div class="wall" style="top: 100px; left: 100px; width: 80px; height: 10px;"></div>
+    <div class="wall" style="top: 100px; left: 250px; width: 100px; height: 10px;"></div>
+    <div class="wall" style="top: 100px; left: 430px; width: 80px; height: 10px;"></div>
+    <div class="wall" style="top: 300px; left: 100px; width: 80px; height: 10px;"></div>
+    <div class="wall" style="top: 300px; left: 250px; width: 100px; height: 10px;"></div>
+    <div class="wall" style="top: 300px; left: 430px; width: 80px; height: 10px;"></div>
+    <div class="wall" style="top: 600px; left: 100px; width: 400px; height: 10px;"></div>
+    
+    <div class="wall" style="top: 110px; left: 100px; width: 10px; height: 500px;"></div>
+    <div class="wall" style="top: 110px; left: 500px; width: 10px; height: 500px;"></div>
+    <div class="wall" style="top: 110px; left: 300px; width: 10px; height: 500px;"></div>
+  </div>
+
+  <script>
+    const player = document.querySelector('.player');
+    const goal = document.querySelector('.goal');
+    const pink = document.querySelector('.pink');
+    const blue = document.querySelector('.blue');
+    const walls = document.querySelectorAll('.wall');
+
+    document.addEventListener('keydown', movePlayer);
+
+    function movePlayer(event) {
+      const key = event.key;
+      const playerRect = player.getBoundingClientRect();
+
+      // Calculate the new position based on the key pressed
+      let newTop = playerRect.top;
+      let newLeft = playerRect.left;
+
+      if (key === 'W' || key === 'w') {
+        newTop -= 10;
+      } else if (key === 'S' || key === 's') {
+        newTop += 10;
+      } else if (key === 'A' || key === 'a') {
+        newLeft -= 10;
+      } else if (key === 'D' || key === 'd') {
+        newLeft += 10;
+      }
+
+      // Check for collisions with walls
+      if (!checkCollision(newTop, newLeft)) {
+        player.style.top = newTop + 'px';
+        player.style.left = newLeft + 'px';
+
+        // Check if the player reached the goal
+        if (checkGoal()) {
+          alert('Congratulations! You reached the goal!');
+        }
+
+        // Check if the player hit the pink box
+        if (checkCollisionWithPink(newTop, newLeft)) {
+          alert('Game Over! You hit the pink box.');
+         
+        }
+
+        // Check if the player hit the blue box
+        if (checkCollisionWithBlue(newTop, newLeft)) {
+          alert('Good job! Continue.');
+          // Move the player to a specific position
+          player.style.top = '150px';
+          player.style.left = '360px';
+        }
+      }
+    }
+
+    function checkCollision(newTop, newLeft) {
+      // Check for collisions with walls
+      for (const wall of walls) {
+        const wallRect = wall.getBoundingClientRect();
+        if (
+          newTop < wallRect.bottom &&
+          newTop + player.clientHeight > wallRect.top &&
+          newLeft < wallRect.right &&
+          newLeft + player.clientWidth > wallRect.left
+        ) {
+          return true; // Collision detected
+        }
+      }
+      return false; // No collision
+    }
+
+    function checkCollisionWithPink(newTop, newLeft) {
+      // Check for collisions with the pink box
+      const pinkRect = pink.getBoundingClientRect();
+      return (
+        newTop < pinkRect.bottom &&
+        newTop + player.clientHeight > pinkRect.top &&
+        newLeft < pinkRect.right &&
+        newLeft + player.clientWidth > pinkRect.left
+      );
+    }
+
+    function checkCollisionWithBlue(newTop, newLeft) {
+      // Check for collisions with the blue box
+      const blueRect = blue.getBoundingClientRect();
+      return (
+        newTop < blueRect.bottom &&
+        newTop + player.clientHeight > blueRect.top &&
+        newLeft < blueRect.right &&
+        newLeft + player.clientWidth > blueRect.left
+      );
+    }
+
+    function checkGoal() {
+      const playerRect = player.getBoundingClientRect();
+      const goalRect = goal.getBoundingClientRect();
+      return (
+        playerRect.top < goalRect.bottom &&
+        playerRect.bottom > goalRect.top &&
+        playerRect.left < goalRect.right &&
+        playerRect.right > goalRect.left
+      );
+    }
+
+    
+  </script>
+</body>
+</html>
