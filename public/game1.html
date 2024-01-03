@@ -36,7 +36,7 @@
       left: 370px;
       width: 20px;
       height: 20px;
-      background-color: white;
+      background-color: green;
     }
 
     .wall {
@@ -58,7 +58,7 @@
       right: 10px;
       width: 100px;
       height: 20px;
-      background-color: #0f0; /* Green color for full health */
+      background-color: #0f0; 
       border: 1px solid #000;
     }
   </style>
@@ -67,11 +67,34 @@
   <div id="maze">
     <div class="player"></div>
     <div class="goal"></div>
-    <!-- Define the maze walls here -->
-    <div class="wall" style="top: 50px; left: 100px; width: 200px; height: 10px;"></div>
-    <div class="wall" style="top: 100px; left: 100px; width: 10px; height: 200px;"></div>
+   
+    <div class="wall" style="top: 1px; left: 100px; width: 400px; height: 10px;"></div>
+        <div class="wall" style="top: 500px; left: 100px; width: 400px; height: 10px;"></div>
+    <div class="wall" style="top: 11px; left: 100px; width: 10px; height: 100px;"></div>
+    <div class="wall" style="top: 200px; left: 100px; width: 10px; height: 500px;"></div>
+    <div class="wall" style="top: 11px; left: 500px; width: 10px; height: 500px;"></div>
+    <div class="wall" style="top: 11px; left: 400px; width: 10px; height: 130px;"></div>
+    
     <div class="wall" style="top: 100px; left: 300px; width: 10px; height: 200px;"></div>
+    <div class="wall" style="top: 100px; left: 200px; width: 10px; height: 100px;"></div>
+    <div class="wall" style="top: 11px; left: 250px; width: 10px; height: 50px;"></div>
+    
     <div class="wall" style="top: 250px; left: 100px; width: 200px; height: 10px;"></div>
+    <div class="wall" style="top: 150px; left: 200px; width: 100px; height: 10px;"></div>
+     <div class="wall" style="top: 200px; left: 300px; width: 100px; height: 10px;"></div>
+   <div class="wall" style="top: 300px; left: 400px; width: 100px; height: 10px;"></div>
+     
+   <div class="wall" style="top: 360px; left: 300px; width: 150px; height: 10px;"></div>
+   <div class="wall" style="top: 370px; left: 440px; width: 10px; height: 70px;"></div>
+    <div class="wall" style="top: 430px; left: 300px; width: 150px; height: 10px;"></div>
+    
+     <div class="wall" style="top: 300px; left: 150px; width: 10px; height: 150px;"></div>
+     <div class="wall" style="top: 300px; left: 230px; width: 10px; height: 150px;"></div>
+     <div class="wall" style="top: 300px; left: 150px; width: 100px; height: 10px;"></div>
+     <div class="wall" style="top: 450px; left: 150px; width: 90px; height: 10px;"></div>
+     <div class="wall" style="top: 360px; left: 200px; width: 90px; height: 10px;"></div>
+     <div class="wall" style="top: 360px; left: 1px; width: 100px; height: 10px;"></div>
+    
   </div>
 
   <div id="flashlight"></div>
@@ -118,6 +141,7 @@
         }
 
         // Move the flashlight along with the player
+        // radius here
         const playerCenterX = newLeft + player.clientWidth / 2;
         const playerCenterY = newTop + player.clientHeight / 2;
         const radius = 50;
@@ -130,7 +154,7 @@
         // Check for game over
         if (health <= 0) {
           alert('Game Over! Your health reached zero.');
-          resetGame();
+          
         }
       }
     }
@@ -167,12 +191,7 @@
       healthBar.style.backgroundColor = `rgb(${255 - (health * 2.55)}, ${health * 2.55}, 0)`;
     }
 
-    function resetGame() {
-      player.style.top = '10px';
-      player.style.left = '10px';
-      health = 100;
-      updateHealthBar();
-    }
+ 
   </script>
 </body>
 </html>
