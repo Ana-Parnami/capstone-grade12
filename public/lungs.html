@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ 
+  <title>Color Changing Balls Game</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      cursor: url('https://preview.redd.it/7g98wlikkmf21.jpg?auto=webp&s=efbd47c056fc14978d46fe16a645c35c1eab26dc'), auto;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    const canvas = document.createElement('canvas');
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    const balls = [];
+    const ballCount = 10;
+    let score = 0;
+
+    const goalColor = 'red';
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    function randomColor() {
+      const letters = '0123456789ABCDEF';
+      let color = 'red';
+      for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+      }
+      return color;
+    }
+
+    function createBall() {
+      const radius = 30;
+      const x = Math.random() * (canvas.width - 2 * radius) + radius;
+      const y = Math.random() * (canvas.height - 2 * radius) + radius;
+      const color = randomColor();
+      const speedX = (Math.random() - 0.5) * 4;
+      const speedY = (Math.random() - 0.5) * 4; 
+
+      return { x, y, radius, color, speedX, speedY, isVisible: true };
+    }
+
+    function drawBall(ball) {
+      if (ball.isVisible) {
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+        ctx.fillStyle = ball.color;
+        ctx.fill();
+        ctx.closePath();
+      }
+    }
+
+    function update() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const ball of balls) {
+        if (ball.isVisible) {
+          ball.x += ball.speedX;
+          ball.y += ball.speedY;
+
+          // Bounce off walls
+          if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
+            ball.speedX *= -1;
+          }
+          if (ball.y - ball.radius < 0 || ball.y + ball.radius > canvas.height) {
+            ball.speedY *= -1;
+          }
+
+          drawBall(ball);
+        }
+      }
+
+      checkWinCondition();
+
+      requestAnimationFrame(update);
+    }
+
+    function checkCollision(mouseX, mouseY) {
+      for (const ball of balls) {
+        const dx = mouseX - ball.x;
+        const dy = mouseY - ball.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < ball.radius && ball.color !== goalColor) {
+          ball.color = goalColor;
+          ball.isVisible = false;
+          score++;
+
+          if (score === balls.length) {
+            alert('Congratulations! You won the game!');
+            resetGame();
+          }
+        }
+      }
+    }
+
+    function checkWinCondition() {
+      let allRed = true;
+      for (const ball of balls) {
+        if (ball.color !== goalColor) {
+          allRed = false;
+          break;
+        }
+      }
+
+      if (allRed) {
+        alert('Congratulations! You won the game!');
+    
+      }
+    }
+
+    canvas.addEventListener('click', function (event) {
+      const mouseX = event.clientX;
+      const mouseY = event.clientY;
+      checkCollision(mouseX, mouseY);
+    });
+
+    
+
+    for (let i = 0; i < ballCount; i++) {
+      balls.push(createBall());
+    }
+
+    update();
+  </script>
+</body>
+</html>
