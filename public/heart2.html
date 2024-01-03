@@ -132,12 +132,13 @@
 
         // Check if the player reached the goal
         if (checkGoal()) {
-          alert('Congratulations! You reached the goal!');
+           window.location.href = "intro4.html";
         }
 
         // Check if the player hit the pink box
         if (checkCollisionWithPink(newTop, newLeft)) {
-          alert('Game Over! You hit the pink box.');
+          alert('OOOPS wrong side. Read and try again!');
+                     window.location.href = "intro3.html";
          
         }
 
