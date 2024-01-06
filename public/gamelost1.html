@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Changer</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: red; 
+        }
+
+        #container {
+            text-align: center;
+            padding: 150px;
+            border-radius: 8px;
+            background-color: black; 
+        }
+
+        #displayText {
+            font-size: 24px;
+            color: white; 
+        }
+
+        #nextButton, #goButton {
+            padding: 10px;
+            font-size: 16px;
+            background-color: white;
+            color: red;
+            border: none;
+            cursor: pointer;
+        }
+
+        #goButton {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <p id="displayText">Sickel Cell!! Sickle Cell Anemia!</p>
+    <button id="nextButton" onclick="changeText()">Next</button>
+    <button id="goButton" onclick="startGame()">Play</button>
+</div>
+
+<script>
+    var textIndex = 0;
+var textArray = [
+  "great job", 
+  "YOUVE DAMAGD THE SHAPE OF YOUR RED BLOOD CELL. THIS CAN CAUSES A SICKLE CELL", 
+"Sickle-shaped cells can cause blockages in blood vessels, leading to complications.",
+"This conditions is usually genetic so fear not! just try to escape by touching the green dot!",
+"Remember its dark you you only get low visability.",
+"Dont touch the walls or your health goes down :("
+  
+];
+
+    function changeText() {
+        var displayTextElement = document.getElementById("displayText");
+        var nextButton = document.getElementById("nextButton");
+        var goButton = document.getElementById("goButton");
+
+        // Increment index and loop back to the start if it exceeds the array length
+        textIndex = (textIndex + 1) % textArray.length;
+
+        // Update the text inside the box
+        displayTextElement.innerText = textArray[textIndex];
+
+        // Check if it's the last sentence and show/hide buttons accordingly
+        if (textIndex === textArray.length - 1) {
+            nextButton.style.display = "none";
+            goButton.style.display = "inline-block";
+        } else {
+            nextButton.style.display = "inline-block";
+            goButton.style.display = "none";
+        }
+    }
+
+    function startGame() {
+       window.location.href = "game1.html";
+    }
+</script>
+
+</body>
+</html>
