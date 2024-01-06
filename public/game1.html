@@ -138,6 +138,7 @@
         // Check if the player reached the goal
         if (checkGoal()) {
           alert('Congratulations! You reached the goal!');
+          window.location.href = "intro7.html";
         }
 
         // Move the flashlight along with the player
@@ -154,6 +155,7 @@
         // Check for game over
         if (health <= 0) {
           alert('Game Over! Your health reached zero.');
+          window.location.href = "intro6.html";
           
         }
       }
