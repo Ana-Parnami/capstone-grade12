@@ -1,1 +1,56 @@
-hi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to bottom, #FFD6E5, #FF87AB);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #yesButton, #noButton {
+            padding: 10px;
+            font-size: 16px;
+            background-color: white;
+            color: red;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Would you like a tutorial?</h2>
+
+<div id="container">
+    <button id="yesButton" onclick="redirectToAnotherWebsite()">Yes</button>
+    <button id="noButton" onclick="showAlert()">No</button>
+</div>
+
+<script>
+    function redirectToAnotherWebsite() {
+       
+        window.location.href = "tutorial.html";
+    }
+
+    function showAlert() {
+        window.location.href = "intro1.html";
+    }
+    }
+</script>
+
+</body>
+</html>
+
