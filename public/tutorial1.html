@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tutorial</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+              background: linear-gradient(to bottom, #FFD6E5, #FF87AB); 
+           
+        }
+
+        #tutorial-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, p {
+            text-align: center;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+        }
+
+        button {
+            padding: 10px 20px;
+  font-size: 16px;
+  margin: 10px;
+  color: red;
+  background-color: black;
+  border: 5px solid white; 
+  border-radius: 50%; 
+  margin: 20px auto;
+  display: block;
+        }
+  
+  
+    </style>
+</head>
+<body>
+
+<div id="tutorial-container">
+    <h1>Welcome to the Game Tutorial!</h1>
+
+    <div id="tutorial-content">
+        <h2>You play as the red cell in this game</h2>
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/fc7a1ab6-069c-4ea3-a9ff-624250fdcda9/du8vnh-278ec7e6-5df5-47f1-a25a-4be06da6e45b.jpg/v1/fill/w_500,h_500,q_75,strp/red_square_by_jillzbeanstalk_du8vnh-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NTAwIiwicGF0aCI6IlwvZlwvZmM3YTFhYjYtMDY5Yy00ZWEzLWE5ZmYtNjI0MjUwZmRjZGE5XC9kdTh2bmgtMjc4ZWM3ZTYtNWRmNS00N2YxLWEyNWEtNGJlMDZkYTZlNDViLmpwZyIsIndpZHRoIjoiPD01MDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.gdz0RS6apuXpVpO4pBSU6gYPnZJZtznHF1gHGD2FaHM" alt="Getting Started Image">
+        <p>Click on the box when you see it</p>
+        <button onclick="nextStep()">Next</button>
+    </div>
+</div>
+
+<script>
+    var steps = [
+        { title: "start", content: "Start by clicking the 'Next' button below.", image: "getting_started_image.jpg" },
+        { title: "Controls", content: "Use the wsad keys to navigate through the game world", image: "http://domoticx.com/wp-content/uploads/2020/06/wsad-keyboard-buttons-icon-300x200.png" },
+        { title: "Scoring", content: "Follow the storyline by clicking the next button.", image: "storyimage.jpg" },
+       
+       
+         { title: "Game Over", content: "Remember to read carefully because there might be a quiz at the end", image: "game_over_image.jpg" }
+    ];
+
+    var currentStep = 0;
+
+    function nextStep() {
+        var tutorialContent = document.getElementById("tutorial-content");
+
+        if (currentStep < steps.length - 1) {
+            currentStep++;
+            tutorialContent.innerHTML = `
+                <h2>${steps[currentStep].title}</h2>
+                <img src="${steps[currentStep].image}" alt="${steps[currentStep].title} Image">
+                <p>${steps[currentStep].content}</p>
+                <button onclick="nextStep()">Next</button>
+            `;
+        } else {
+            tutorialContent.innerHTML = `
+                <h2>End of Tutorial</h2>
+               
+                <p>Congratulations! You have completed the tutorial. Now have fun learning!</p>
+                <button onclick="playGame()">Play Game</button>
+            `;
+        }
+    }
+
+    function playGame() {
+       window.location.href = "start1.html";
+    }
+</script>
+
+</body>
+</html>
