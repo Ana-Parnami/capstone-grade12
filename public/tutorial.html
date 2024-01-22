@@ -60,13 +60,12 @@
 </div>
 
 <script>
+
     var steps = [
         { title: "start", content: "Start by clicking the 'Next' button below.", image: "getting_started_image.jpg" },
         { title: "Controls", content: "Use the wsad keys to navigate through the game world", image: "http://domoticx.com/wp-content/uploads/2020/06/wsad-keyboard-buttons-icon-300x200.png" },
-        { title: "Scoring", content: "Follow the storyline by clicking the next button.", image: "storyimage.jpg" },
-       
-       
-         { title: "Game Over", content: "Remember to read carefully because there might be a quiz at the end", image: "game_over_image.jpg" }
+        { title: "", content: "Follow the storyline by clicking the next button." },
+        { title: "Remember!!", content: "Remember to read carefully because there might be a quiz at the end" }
     ];
 
     var currentStep = 0;
@@ -78,14 +77,13 @@
             currentStep++;
             tutorialContent.innerHTML = `
                 <h2>${steps[currentStep].title}</h2>
-                <img src="${steps[currentStep].image}" alt="${steps[currentStep].title} Image">
+                ${currentStep < steps.length - 2 ? `<img src="${steps[currentStep].image}" alt="${steps[currentStep].title} Image">` : ''}
                 <p>${steps[currentStep].content}</p>
                 <button onclick="nextStep()">Next</button>
             `;
         } else {
             tutorialContent.innerHTML = `
                 <h2>End of Tutorial</h2>
-               
                 <p>Congratulations! You have completed the tutorial. Now have fun learning!</p>
                 <button onclick="playGame()">Play Game</button>
             `;
@@ -93,9 +91,12 @@
     }
 
     function playGame() {
-       window.location.href = "start1.html";
+        window.location.href = "start1.html";
     }
+</script>
+
 </script>
 
 </body>
 </html>
+
